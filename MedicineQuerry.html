@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Prescription Lookup</title>
+    <style>
+        body {
+            background: #0a0d14;
+            color: #d0d0d0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Inter', sans-serif;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            width: 400px;
+            box-shadow: 0px 6px 20px rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+        label {
+            display: block;
+            text-align: left;
+            margin-top: 10px;
+            font-weight: 500;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            color: #d0d0d0;
+            margin-top: 5px;
+        }
+        .search-button {
+            width: 100%;
+            background: #1e40af;
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+        .search-button:hover {
+            background: #1e3a8a;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.08);
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: left;
+        }
+        th {
+            background: #1e40af;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Medicine Prescription Lookup</h2>
+        <label>Appointment Number</label>
+        <input type="text" id="appointmentNumber" placeholder="Enter Appointment Number">
+        <label>Patient ID</label>
+        <input type="text" id="patientId" placeholder="Enter Patient ID">
+        <button class="search-button" onclick="fetchPrescription()">Search</button>
+        <table id="resultsTable" style="display:none;">
+            <thead>
+                <tr>
+                    <th>Medicine</th>
+                    <th>Dosage</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody id="resultsBody">
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function fetchPrescription() {
+            const appointmentNumber = document.getElementById('appointmentNumber').value;
+            const patientId = document.getElementById('patientId').value;
+            
+            if (!appointmentNumber || !patientId) {
+                alert("Please enter both Appointment Number and Patient ID");
+                return;
+            }
+            
+            // Mock data for testing
+            const mockData = {
+                "CA094": {
+                    "KL02BE3433": [{medicine: "Paracetamol", dosage: "500mg", time: "Morning & Night"},
+                             {medicine: "Amoxicillin", dosage: "250mg", time: "Afternoon"}]
+                }
+            };
+            
+            const prescriptions = mockData[appointmentNumber]?.[patientId];
+            
+            const table = document.getElementById("resultsTable");
+            const tableBody = document.getElementById("resultsBody");
+            tableBody.innerHTML = "";
+            
+            if (prescriptions) {
+                prescriptions.forEach(prescription => {
+                    const row = `<tr><td>${prescription.medicine}</td><td>${prescription.dosage}</td><td>${prescription.time}</td></tr>`;
+                    tableBody.innerHTML += row;
+                });
+                table.style.display = "table";
+            } else {
+                alert("No records found.");
+                table.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
