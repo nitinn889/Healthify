@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Portal</title>
+    <link rel="stylesheet" href="payment-style.css">
+    <style>
+        body {
+            background: #0a0d14;
+            color: #d0d0d0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Inter', sans-serif;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            width: 400px;
+            box-shadow: 0px 6px 20px rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+        .tabs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .tab-button {
+            background: #1e40af;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: background 0.3s;
+            flex: 1;
+            margin: 0 5px;
+        }
+        .tab-button:hover {
+            background: #1e3a8a;
+        }
+        .tab-content {
+            display: none;
+        }
+        label {
+            display: block;
+            text-align: left;
+            margin-top: 10px;
+            font-weight: 500;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            color: #d0d0d0;
+            margin-top: 5px;
+        }
+        .pay-button {
+            width: 100%;
+            background: #1e40af;
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+        .pay-button:hover {
+            background: #1e3a8a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Payment Portal</h2>
+        <div class="tabs">
+            <button class="tab-button" onclick="showTab('creditCard')">Credit Card</button>
+            <button class="tab-button" onclick="showTab('bankTransfer')">Bank Transfer</button>
+            <button class="tab-button" onclick="showTab('paypal')">PayPal</button>
+            <button class="tab-button" onclick="showTab('crypto')">Crypto</button>
+        </div>
+        <div id="creditCard" class="tab-content">
+            <label>Card Number</label>
+            <input type="text" placeholder="1234 5678 9012 3456">
+            <label>Expiry Date</label>
+            <input type="text" placeholder="MM/YY">
+            <label>CVV</label>
+            <input type="password" placeholder="***">
+            <button class="pay-button">Pay Now</button>
+        </div>
+        <div id="bankTransfer" class="tab-content">
+            <label>Bank Name</label>
+            <input type="text" placeholder="Your Bank">
+            <label>Account Number</label>
+            <input type="text" placeholder="1234567890">
+            <label>IFSC Code</label>
+            <input type="text" placeholder="IFSC1234">
+            <button class="pay-button">Transfer</button>
+        </div>
+        <div id="paypal" class="tab-content">
+            <label>Email</label>
+            <input type="email" placeholder="your-email@example.com">
+            <button class="pay-button">Proceed with PayPal</button>
+        </div>
+        <div id="crypto" class="tab-content">
+            <label>Wallet Address</label>
+            <input type="text" placeholder="0x123...">
+            <label>Select Cryptocurrency</label>
+            <input type="text" placeholder="Bitcoin, Ethereum...">
+            <button class="pay-button">Pay with Crypto</button>
+        </div>
+    </div>
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.style.display = 'none';
+            });
+            document.getElementById(tabId).style.display = 'block';
+        }
+        document.addEventListener("DOMContentLoaded", () => showTab('creditCard'));
+    </script>
+</body>
+</html>
