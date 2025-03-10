@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Appointment Lookup</title>
+    <style>
+        body {
+            background: #0a0d14;
+            color: #d0d0d0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Inter', sans-serif;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            width: 400px;
+            box-shadow: 0px 6px 20px rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+        label {
+            display: block;
+            text-align: left;
+            margin-top: 10px;
+            font-weight: 500;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            color: #d0d0d0;
+            margin-top: 5px;
+        }
+        .query-button {
+            width: 100%;
+            background: #1e40af;
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+        .query-button:hover {
+            background: #1e3a8a;
+        }
+        #result {
+            margin-top: 15px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Doctor Appointment Lookup</h2>
+        <label>Patient ID</label>
+        <input type="text" id="patientId" placeholder="Enter Patient ID">
+        <label>Appointment Number</label>
+        <input type="text" id="appointmentNumber" placeholder="Enter Appointment Number">
+        <button class="query-button" onclick="queryAppointment()">Find Appointment</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        function queryAppointment() {
+            const patientId = document.getElementById('patientId').value;
+            const appointmentNumber = document.getElementById('appointmentNumber').value;
+            
+            if (!patientId || !appointmentNumber) {
+                document.getElementById('result').innerHTML = "<p style='color: red;'>Please enter both Patient ID and Appointment Number.</p>";
+                return;
+            }
+            
+            // Simulated database query result (Replace with actual DB query via backend)
+            const dummyData = {
+                "CA094": { "appointmentNumber": "KL02BE3433", "doctor": "Dr. Nitin", "department": "Cardiology", "time": "10:30 AM" }
+            };
+            
+            const appointment = dummyData[patientId];
+            
+            if (appointment && appointment.appointmentNumber === appointmentNumber) {
+                document.getElementById('result').innerHTML = `
+                    <p><strong>Doctor:</strong> ${appointment.doctor}</p>
+                    <p><strong>Department:</strong> ${appointment.department}</p>
+                    <p><strong>Scheduled Time:</strong> ${appointment.time}</p>
+                `;
+            } else {
+                document.getElementById('result').innerHTML = "<p style='color: red;'>No appointment found.</p>";
+            }
+        }
+    </script>
+</body>
+</html>
